@@ -7,7 +7,9 @@ class ExampleWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: SafeArea(
-        child: Center(child: Text('HI'),),
+        child: Center(
+          child: Text('HI'),
+        ),
       ),
     );
   }
