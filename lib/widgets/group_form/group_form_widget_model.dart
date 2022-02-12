@@ -25,10 +25,10 @@ class GroupFormWidgetModelProvider extends InheritedWidget {
 
   final GroupFormWidgetModel model;
 
-  static GroupFormWidgetModelProvider? watch(BuildContext context) {
-    return context
-        .dependOnInheritedWidgetOfExactType<GroupFormWidgetModelProvider>();
-  }
+  // static GroupFormWidgetModelProvider? watch(BuildContext context) {
+  //   return context
+  //       .dependOnInheritedWidgetOfExactType<GroupFormWidgetModelProvider>();
+  // }
 
   static GroupFormWidgetModelProvider? read(BuildContext context) {
     final widget = context
