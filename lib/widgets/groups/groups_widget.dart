@@ -4,7 +4,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 class GroupsWidget extends StatelessWidget {
   const GroupsWidget({Key? key}) : super(key: key);
 
-  void showForm(BuildContext context){
+  void showForm(BuildContext context) {
     Navigator.of(context).pushNamed('/groups/form');
   }
 
@@ -39,7 +39,10 @@ class _GroupListWidgetState extends State<_GroupListWidget> {
         return _GroupListRowWidget(indexInList: index);
       },
       separatorBuilder: (BuildContext context, int index) {
-        return const Divider(height: 3);
+        return const Divider(
+          height: 3,
+          thickness: 1.5,
+        );
       },
     );
   }
@@ -69,7 +72,7 @@ class _GroupListRowWidget extends StatelessWidget {
       child: ListTile(
         title: const Text('100'),
         trailing: const Icon(Icons.chevron_right),
-        onTap: (){},
+        onTap: () {},
       ),
     );
   }
