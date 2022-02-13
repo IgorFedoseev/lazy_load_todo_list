@@ -46,10 +46,7 @@ class GroupsWidgetModel extends ChangeNotifier{
     _readGroupsFromHive(box);
     box.listenable().addListener(() => _readGroupsFromHive(box));
   }
-
 }
-
-
 
 class GroupsWidgetModelProvider extends InheritedNotifier {
   final GroupsWidgetModel model;
