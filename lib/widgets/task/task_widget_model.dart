@@ -13,7 +13,7 @@ class TaskWidgetModel extends ChangeNotifier {
   }
 
   void showForm(BuildContext context) {
-    Navigator.of(context).pushNamed('/groups/tasks/form');
+    Navigator.of(context).pushNamed('/groups/tasks/form', arguments: groupKey);
   }
 
   void _loadGroup() async{
