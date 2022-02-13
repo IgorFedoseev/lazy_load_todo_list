@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:lazyload_todo_list/widgets/task/task_widget_model.dart';
 
 class TaskWidget extends StatefulWidget {
@@ -51,7 +52,65 @@ class TaskWidgetBody extends StatelessWidget {
         child: const Icon(Icons.add),
         onPressed: () => model?.showForm(context),
       ),
-      body: Container(),
+      body: const _TaskListWidget(),
+    );
+  }
+}
+
+class _TaskListWidget extends StatelessWidget {
+  const _TaskListWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final groupsCount =
+        TaskWidgetModelProvider.watch(context)?.model.tasks.length ?? 0;
+    return ListView.separated(
+      itemCount: groupsCount,
+      itemBuilder: (BuildContext context, int index) {
+        return _TaskListRowWidget(indexInList: index);
+      },
+      separatorBuilder: (BuildContext context, int index) {
+        return const Divider(
+          height: 3,
+          thickness: 1.5,
+        );
+      },
+    );
+  }
+}
+
+class _TaskListRowWidget extends StatelessWidget {
+  const _TaskListRowWidget({Key? key, required this.indexInList})
+      : super(key: key);
+  final int indexInList;
+
+  @override
+  Widget build(BuildContext context) {
+    final model = TaskWidgetModelProvider.read(context)!.model;
+    final task = model.tasks[indexInList];
+
+    final icon = task.isDone ? Icons.done : Icons.circle_outlined;
+    final style = task.isDone ? const TextStyle(decoration: TextDecoration.lineThrough) : null;
+
+    return Slidable(
+      // key: const ValueKey(0),
+      endActionPane: ActionPane(
+        motion: const StretchMotion(),
+        children: [
+          SlidableAction(
+            onPressed: (buildContext) => model.deleteTask(indexInList),
+            backgroundColor: const Color(0xFFFE4A49),
+            foregroundColor: Colors.white,
+            icon: Icons.delete,
+            label: 'Удалить',
+          ),
+        ],
+      ),
+      child: ListTile(
+        title: Text(task.text, style: style),
+        trailing: Icon(icon),
+        onTap: () => model.doneToggle(indexInList),
+      ),
     );
   }
 }

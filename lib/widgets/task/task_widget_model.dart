@@ -27,7 +27,7 @@ class TaskWidgetModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void _readTasks(){
+  void _readTasks() {
     _tasks = _group?.tasks ?? <Task>[];
     notifyListeners();
   }
@@ -38,8 +38,17 @@ class TaskWidgetModel extends ChangeNotifier {
     box.listenable(keys: <dynamic>[groupKey]).addListener(_readTasks);
   }
 
-  void deleteTask(int groupIndex) {
-    _group?.tasks?.deleteFromHive(groupIndex);
+  void deleteTask(int groupIndex) async {
+    await _group?.tasks?.deleteFromHive(groupIndex);
+    _group?.save();
+  }
+
+  void doneToggle(int groupIndex) async{
+    final task = group?.tasks?[groupIndex];
+    final currentState = task?.isDone ?? false;
+    task?.isDone = !currentState;
+    await task?.save();
+    notifyListeners();
   }
 
   void _setup() async{
@@ -47,6 +56,10 @@ class TaskWidgetModel extends ChangeNotifier {
       Hive.registerAdapter(GroupAdapter());
     }
     _groupBox = Hive.openBox<Group>('groups_box');
+    if(!Hive.isAdapterRegistered(2)){
+      Hive.registerAdapter(TaskAdapter());
+    }
+    Hive.openBox<Task>('tasks_box');
     _loadGroup();
     _setupListenTasks();
   }

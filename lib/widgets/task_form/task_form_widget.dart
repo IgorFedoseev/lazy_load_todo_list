@@ -17,14 +17,15 @@ class _TaskFormWidgetState extends State<TaskFormWidget> {
 
     if (_model == null) {
       final groupKey = ModalRoute.of(context)!.settings.arguments as int;
-      // получаем аргумент из функции showTasks файла widget_group_model
+      // получаем аргумент из функции showTasks файла task_widget_model
       _model = TaskFormWidgetModel(groupKey: groupKey);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return TaskFormWidgetModelProvider(model: _model!, child: const _TextFormWidgetBody());
+    return TaskFormWidgetModelProvider(
+        model: _model!, child: const _TextFormWidgetBody());
   }
 }
 
@@ -44,9 +45,8 @@ class _TextFormWidgetBody extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => TaskFormWidgetModelProvider.read(context)
-            ?.model
-            .saveTask(context),
+        onPressed: () =>
+            TaskFormWidgetModelProvider.read(context)?.model.saveTask(context),
         child: const Icon(Icons.done),
       ),
     );
