@@ -4,6 +4,7 @@ import 'package:lazyload_todo_list/domain/entity/group.dart';
 
 class GroupFormWidgetModel {
   String groupName = '';
+
   void saveGroup(BuildContext context) async {
     if(groupName.isEmpty) return;
     if(!Hive.isAdapterRegistered(1)){
