@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:lazyload_todo_list/domain/entity/group.dart';
 import 'package:lazyload_todo_list/domain/entity/task.dart';
+import 'package:lazyload_todo_list/ui/navigation/main_navigation.dart';
 
 class TaskWidgetModel extends ChangeNotifier {
   int groupKey;
@@ -18,10 +19,11 @@ class TaskWidgetModel extends ChangeNotifier {
   }
 
   void showForm(BuildContext context) {
-    Navigator.of(context).pushNamed('/groups/tasks/form', arguments: groupKey);
+    Navigator.of(context)
+        .pushNamed(MainNavigationRouteNames.taskForm, arguments: groupKey);
   }
 
-  void _loadGroup() async{
+  void _loadGroup() async {
     final box = await _groupBox;
     _group = box.get(groupKey);
     notifyListeners();
@@ -32,7 +34,7 @@ class TaskWidgetModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void _setupListenTasks() async{
+  void _setupListenTasks() async {
     final box = await _groupBox;
     _readTasks();
     box.listenable(keys: <dynamic>[groupKey]).addListener(_readTasks);
@@ -43,7 +45,7 @@ class TaskWidgetModel extends ChangeNotifier {
     _group?.save();
   }
 
-  void doneToggle(int groupIndex) async{
+  void doneToggle(int groupIndex) async {
     final task = group?.tasks?[groupIndex];
     final currentState = task?.isDone ?? false;
     task?.isDone = !currentState;
@@ -51,12 +53,12 @@ class TaskWidgetModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void _setup() async{
-    if(!Hive.isAdapterRegistered(1)){
+  void _setup() async {
+    if (!Hive.isAdapterRegistered(1)) {
       Hive.registerAdapter(GroupAdapter());
     }
     _groupBox = Hive.openBox<Group>('groups_box');
-    if(!Hive.isAdapterRegistered(2)){
+    if (!Hive.isAdapterRegistered(2)) {
       Hive.registerAdapter(TaskAdapter());
     }
     Hive.openBox<Task>('tasks_box');

@@ -3,37 +3,40 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:lazyload_todo_list/ui/widgets/task/task_widget_model.dart';
 
 class TaskWidget extends StatefulWidget {
-  const TaskWidget({Key? key}) : super(key: key);
+  final int groupKey;
+  const TaskWidget({Key? key, required this.groupKey}) : super(key: key);
 
   @override
   _TaskWidgetState createState() => _TaskWidgetState();
 }
 
 class _TaskWidgetState extends State<TaskWidget> {
-  TaskWidgetModel? _model;
+  late final TaskWidgetModel _model;
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    if (_model == null) {
-      final groupKey = ModalRoute.of(context)!.settings.arguments as int;
-      // получаем аргумент из функции showTasks файла widget_group_model
-      _model = TaskWidgetModel(groupKey: groupKey);
-    }
+  void initState() {
+    super.initState();
+    _model = TaskWidgetModel(groupKey: widget.groupKey);
   }
+
+  // @override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+  //
+  //   if (_model == null) {
+  //     final groupKey = ModalRoute.of(context)!.settings.arguments as int;
+  //     // получаем аргумент из функции showTasks файла widget_group_model
+  //     _model = TaskWidgetModel(groupKey: groupKey);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
     final model = _model;
-    if (model != null) {
       return TaskWidgetModelProvider(
         model: model,
         child: const TaskWidgetBody(),
       );
-    } else {
-      return const Center(child: CircularProgressIndicator());
-    }
   }
 }
 
