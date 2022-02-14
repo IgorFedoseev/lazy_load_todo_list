@@ -3,6 +3,10 @@ import 'package:lazyload_todo_list/domain/entity/group.dart';
 import 'package:lazyload_todo_list/domain/entity/task.dart';
 
 class BoxManager {
+  // Паттерн синглтон:
+  static final BoxManager instance = BoxManager._();
+  BoxManager._();  // приватный конструктор
+
   Future<Box<Group>> openGroupBox() async {
     return _openBox<Group>('groups_box', 1, GroupAdapter());
   }
