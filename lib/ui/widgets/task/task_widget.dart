@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:lazyload_todo_list/widgets/task/task_widget_model.dart';
+import 'package:lazyload_todo_list/ui/widgets/task/task_widget_model.dart';
 
 class TaskWidget extends StatefulWidget {
   const TaskWidget({Key? key}) : super(key: key);

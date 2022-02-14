@@ -7,7 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:lazyload_todo_list/widgets/app/my_app.dart';
+import 'package:lazyload_todo_list/ui/widgets/app/my_app.dart';
 
 //import 'package:lazyload_todo_list/main.dart';
 

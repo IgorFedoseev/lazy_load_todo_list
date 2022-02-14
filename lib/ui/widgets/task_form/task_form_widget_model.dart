@@ -20,7 +20,6 @@ class TaskFormWidgetModel {
     final taskBox = await Hive.openBox<Task>('tasks_box');
     final task = Task(text: taskText, isDone: false);
     await taskBox.add(task);
-    print(taskBox.length);
 
     final groupBox = await Hive.openBox<Group>('groups_box');
     final group = groupBox.get(groupKey);
