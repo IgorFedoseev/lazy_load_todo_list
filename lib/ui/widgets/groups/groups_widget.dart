@@ -13,6 +13,12 @@ class _GroupsWidgetState extends State<GroupsWidget> {
   final _model = GroupsWidgetModel();
 
   @override
+  void dispose() async{
+    super.dispose();
+    await _model.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return GroupsWidgetModelProvider(
       model: _model,
