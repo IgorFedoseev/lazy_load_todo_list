@@ -23,9 +23,9 @@ class MainNavigation {
   Route<Object> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case MainNavigationRouteNames.tasks:
-        final groupKey = settings.arguments as int;
+        final config = settings.arguments as TaskWidgetConfig;
         return MaterialPageRoute(
-          builder: (context) => TaskWidget(groupKey: groupKey),
+          builder: (context) => TaskWidget(config: config),
         );
       case MainNavigationRouteNames.taskForm:
         final groupKey = settings.arguments as int;

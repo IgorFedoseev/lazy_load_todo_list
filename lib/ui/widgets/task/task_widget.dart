@@ -2,9 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:lazyload_todo_list/ui/widgets/task/task_widget_model.dart';
 
-class TaskWidget extends StatefulWidget {
+class TaskWidgetConfig {
   final int groupKey;
-  const TaskWidget({Key? key, required this.groupKey}) : super(key: key);
+  final String title;
+
+  TaskWidgetConfig(this.groupKey, this.title);
+}
+
+class TaskWidget extends StatefulWidget {
+  final TaskWidgetConfig config;
+  const TaskWidget({Key? key, required this.config}) : super(key: key);
 
   @override
   _TaskWidgetState createState() => _TaskWidgetState();
@@ -16,7 +23,7 @@ class _TaskWidgetState extends State<TaskWidget> {
   @override
   void initState() {
     super.initState();
-    _model = TaskWidgetModel(groupKey: widget.groupKey);
+    _model = TaskWidgetModel(config: widget.config);
   }
 
   // @override
@@ -46,7 +53,7 @@ class TaskWidgetBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = TaskWidgetModelProvider.watch(context)?.model;
-    final title = model?.group?.name ?? 'Задачи';
+    final title = model?.config.title ?? 'Задачи';
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
